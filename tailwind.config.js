@@ -1,4 +1,15 @@
-const colors = require('tailwindcss/colors')
+const cssColors = (selection = []) => {
+  const result = {}
+
+  for (const color of selection) {
+    for (let i = 1; i <= 10; i++) {
+      const shade = `${color}-${i}`
+      result[shade] = `var(--color-${shade})`
+    }
+  }
+
+  return result
+}
 
 module.exports = {
   purge: ['./pages/**/*.tsx', './components/**/*.tsx'],
@@ -7,13 +18,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        fg: 'var(--color-fg)',
-        bg: 'var(--color-bg)',
-        bgDim: 'var(--color-bgDim)',
-        accent: 'var(--color-accent)',
-        accent2: 'var(--color-accent2)',
+        ...cssColors(['primary', 'secondary', 'tertiary', 'neutral']),
         transparent: 'transparent',
-        ...colors,
       },
       spacing: {
         header: 'var(--header-height)',
